@@ -1,8 +1,13 @@
 import { templates } from "../data/templates";
 import TemplateCard from "./TemplateCard";
 import { useState } from "react";
+import type { Template } from "../types/Template";
 
-export default function TemplateList() {
+type TemplateListProps = {
+  onSelectTemplate: (template: Template) => void;
+};
+
+export default function TemplateList({ onSelectTemplate }: TemplateListProps) {
   const [search, setSearch] = useState("");
   const normalizedSearch = search.trim().toLowerCase();
   const filteredTemplates = templates.filter((template) =>
@@ -21,7 +26,11 @@ export default function TemplateList() {
       <ul>
         {filteredTemplates.length === 0 && <li>No templates found</li>}
         {filteredTemplates.map((template) => (
-          <TemplateCard key={template.id} template={template} />
+          <TemplateCard
+            key={template.id}
+            template={template}
+            onSelectTemplate={onSelectTemplate}
+          />
         ))}
       </ul>
     </section>
