@@ -20,10 +20,10 @@ export default function TemplateList({
   useEffect(() => {
     if (filteredTemplates.length === 1) {
       onAutoSelectTemplate(filteredTemplates[0]);
-    } else {
+    } else if (filteredTemplates.length === 0) {
       onAutoSelectTemplate(null);
     }
-  }, [filteredTemplates, onAutoSelectTemplate, onSelectTemplate]);
+  }, [filteredTemplates, onAutoSelectTemplate]);
   return (
     <section>
       <div>
