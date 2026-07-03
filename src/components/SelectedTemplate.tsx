@@ -1,7 +1,7 @@
 import type { Template } from "../types/Template";
 
 type SelectedTemplateProps = {
-  template: Template | null;
+  template: Template;
 };
 const statusColor = {
   published: "green",

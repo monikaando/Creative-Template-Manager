@@ -10,7 +10,10 @@ function App() {
   return (
     <main>
       <h1>Creative Template Manager</h1>
-      <TemplateList onSelectTemplate={setSelectedTemplate} />
+      <TemplateList
+        onSelectTemplate={setSelectedTemplate}
+        onAutoSelectTemplate={setSelectedTemplate}
+      />
       {selectedTemplate && <SelectedTemplate template={selectedTemplate} />}
     </main>
   );
