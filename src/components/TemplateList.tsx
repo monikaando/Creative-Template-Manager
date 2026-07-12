@@ -7,6 +7,7 @@ type TemplateListProps = {
   onSelectTemplate: (template: Template) => void;
   onAutoSelectTemplate: (template: Template | null) => void;
   onDeleteTemplate: (templateId: number) => void;
+  onEditTemplate: (templateId: number) => void;
 };
 
 export default function TemplateList({
@@ -14,6 +15,7 @@ export default function TemplateList({
   onSelectTemplate,
   onAutoSelectTemplate,
   onDeleteTemplate,
+  onEditTemplate,
 }: TemplateListProps) {
   const [search, setSearch] = useState("");
   const normalizedSearch = search.trim().toLowerCase();
@@ -49,6 +51,7 @@ export default function TemplateList({
             template={template}
             onSelectTemplate={onSelectTemplate}
             onDeleteTemplate={onDeleteTemplate}
+            onEditTemplate={onEditTemplate}
           />
         ))}
       </ul>
