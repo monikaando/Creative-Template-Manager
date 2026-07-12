@@ -1,6 +1,6 @@
 import TemplateCard from "./TemplateCard";
 import { useState, useEffect, useMemo } from "react";
-import type { Template } from "../types/Template";
+import type { NewTemplate, Template } from "../types/Template";
 
 type TemplateListProps = {
   templates: Template[];
@@ -8,6 +8,7 @@ type TemplateListProps = {
   onAutoSelectTemplate: (template: Template | null) => void;
   onDeleteTemplate: (templateId: number) => void;
   onEditTemplate: (templateId: number) => void;
+  onAddTemplate: (template: NewTemplate) => void;
 };
 
 export default function TemplateList({
@@ -16,6 +17,7 @@ export default function TemplateList({
   onAutoSelectTemplate,
   onDeleteTemplate,
   onEditTemplate,
+  onAddTemplate,
 }: TemplateListProps) {
   const [search, setSearch] = useState("");
   const normalizedSearch = search.trim().toLowerCase();
@@ -52,6 +54,7 @@ export default function TemplateList({
             onSelectTemplate={onSelectTemplate}
             onDeleteTemplate={onDeleteTemplate}
             onEditTemplate={onEditTemplate}
+            onAddTemplate={onAddTemplate}
           />
         ))}
       </ul>

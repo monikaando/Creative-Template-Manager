@@ -6,3 +6,5 @@ export type Template = {
   category: string;
   status: TemplateStatus;
 };
+
+export type NewTemplate = Omit<Template, "id">;
