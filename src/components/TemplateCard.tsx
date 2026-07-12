@@ -14,7 +14,14 @@ export default function TemplateCard({
   return (
     <li onClick={() => onSelectTemplate(template)}>
       <h2>{template.name}</h2>
-      <button onClick={() => onDeleteTemplate(template.id)}>Delete</button>
+      <button
+        onClick={(event) => {
+          event.stopPropagation();
+          onDeleteTemplate(template.id);
+        }}
+      >
+        Delete
+      </button>
     </li>
   );
 }

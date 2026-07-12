@@ -13,6 +13,12 @@ function App() {
     setTemplates((currentTemplates) =>
       currentTemplates.filter((template) => template.id !== templateId),
     );
+
+    setSelectedTemplate((currentSelectedTemplate) =>
+      currentSelectedTemplate?.id === templateId
+        ? null
+        : currentSelectedTemplate,
+    );
   };
   return (
     <main>
