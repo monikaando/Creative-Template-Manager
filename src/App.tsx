@@ -11,10 +11,22 @@ function App() {
     null,
   );
   const [templates, setTemplates] = useState<Template[]>(initialTemplates);
-  const [addingTemplateId, setAddingTemplateId] = useState<number | null>(null);
+  const [isAddingTemplate, setIsAddingTemplate] = useState(false);
   const [editingTemplateId, setEditingTemplateId] = useState<number | null>(
     null,
   );
+
+  const handleAddTemplate = (template: NewTemplate) => {
+    setTemplates((currentTemplates) => [
+      ...currentTemplates,
+      {
+        ...template,
+        id: currentTemplates.length + 1,
+      },
+    ]);
+
+    setIsAddingTemplate(false);
+  };
   const handleDeleteTemplate = (templateId: number) => {
     setTemplates((currentTemplates) =>
       currentTemplates.filter((template) => template.id !== templateId),
@@ -32,44 +44,35 @@ function App() {
   const editingTemplate = templates.find(
     (template) => template.id === editingTemplateId,
   );
-  const addingTemplate = templates.find(
-    (template) => template.id === addingTemplateId,
-  );
+
   const handleSaveTemplate = (template: Template) => {
-    setSelectedTemplate((currentSelectedTemplate) =>
-      currentSelectedTemplate?.id === template.id
-        ? template
-        : currentSelectedTemplate,
+    setTemplates((currentTemplates) =>
+      currentTemplates.map((currentTemplate) =>
+        currentTemplate.id === template.id ? template : currentTemplate,
+      ),
     );
+
     setEditingTemplateId(null);
   };
   const handleCancelEditing = () => {
     setEditingTemplateId(null);
   };
-  const handleAddTemplate = (template: NewTemplate) => {
-    setTemplates((currentTemplates) => [
-      ...currentTemplates,
-      { ...template, id: currentTemplates.length + 1 },
-    ]);
-  };
-  const handleCancelAdding = (templateId: number) => {
-    setAddingTemplateId((currentAddingTemplateId) =>
-      currentAddingTemplateId === templateId ? null : currentAddingTemplateId,
-    );
-    setAddingTemplateId(null);
+
+  const handleCancelAdding = () => {
+    setIsAddingTemplate(false);
   };
   return (
     <main>
       <h1>Creative Template Manager</h1>
+      <button onClick={() => setIsAddingTemplate(true)}>Add Template</button>
       <TemplateList
         templates={templates}
         onSelectTemplate={setSelectedTemplate}
         onAutoSelectTemplate={setSelectedTemplate}
         onDeleteTemplate={handleDeleteTemplate}
         onEditTemplate={handleEditTemplate}
-        onAddTemplate={handleAddTemplate}
       />
-      {selectedTemplate && <SelectedTemplate template={selectedTemplate} />}
+      {selectedTemplate && <SelectedTemplate template={selectedTemplate} />}{" "}
       {editingTemplate && (
         <EditTemplateForm
           key={editingTemplate.id}
@@ -78,12 +81,10 @@ function App() {
           onSave={handleSaveTemplate}
         />
       )}
-      {addingTemplate && (
+      {isAddingTemplate && (
         <AddTemplateForm
-          key={addingTemplate.id}
-          template={addingTemplate}
-          onCancel={() => handleCancelAdding(addingTemplateId)}
-          onSave={handleSaveTemplate}
+          onCancel={handleCancelAdding}
+          onSave={handleAddTemplate}
         />
       )}
     </main>
