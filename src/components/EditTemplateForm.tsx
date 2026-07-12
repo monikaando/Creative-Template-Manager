@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type FormEventHandler } from "react";
 import type { Template, TemplateStatus } from "../types/Template";
 
 type EditTemplateFormProps = {
@@ -12,7 +12,8 @@ export default function EditTemplateForm({
   onSave,
 }: EditTemplateFormProps) {
   const [formData, setFormData] = useState(template);
-  const handleSave = (event) => {
+
+  const handleSave: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
     onSave(formData);
   };

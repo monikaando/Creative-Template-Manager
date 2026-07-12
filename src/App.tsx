@@ -52,6 +52,7 @@ function App() {
       {selectedTemplate && <SelectedTemplate template={selectedTemplate} />}
       {editingTemplate && (
         <EditTemplateForm
+          key={editingTemplate.id}
           template={editingTemplate}
           onCancel={handleCancelEditing}
           onSave={handleSaveTemplate}
