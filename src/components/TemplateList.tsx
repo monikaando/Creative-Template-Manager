@@ -1,23 +1,28 @@
-import { templates } from "../data/templates";
 import TemplateCard from "./TemplateCard";
 import { useState, useEffect, useMemo } from "react";
 import type { Template } from "../types/Template";
 
 type TemplateListProps = {
+  templates: Template[];
   onSelectTemplate: (template: Template) => void;
   onAutoSelectTemplate: (template: Template | null) => void;
+  onDeleteTemplate: (templateId: number) => void;
 };
 
 export default function TemplateList({
+  templates,
   onSelectTemplate,
   onAutoSelectTemplate,
+  onDeleteTemplate,
 }: TemplateListProps) {
   const [search, setSearch] = useState("");
   const normalizedSearch = search.trim().toLowerCase();
-  const filteredTemplates = useMemo(() => {return templates.filter((template) =>
-    template.name.toLowerCase().startsWith(normalizedSearch),
-  )}, [normalizedSearch]);
-  
+  const filteredTemplates = useMemo(() => {
+    return templates.filter((template) =>
+      template.name.toLowerCase().startsWith(normalizedSearch),
+    );
+  }, [templates, normalizedSearch]);
+
   useEffect(() => {
     if (filteredTemplates.length === 1) {
       onAutoSelectTemplate(filteredTemplates[0]);
@@ -43,6 +48,7 @@ export default function TemplateList({
             key={template.id}
             template={template}
             onSelectTemplate={onSelectTemplate}
+            onDeleteTemplate={onDeleteTemplate}
           />
         ))}
       </ul>
