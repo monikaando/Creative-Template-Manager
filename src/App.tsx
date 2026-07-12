@@ -15,7 +15,7 @@ function App() {
   const [editingTemplateId, setEditingTemplateId] = useState<number | null>(
     null,
   );
-
+  console.log("templates", templates);
   const handleAddTemplate = (template: NewTemplate) => {
     setTemplates((currentTemplates) => [
       ...currentTemplates,

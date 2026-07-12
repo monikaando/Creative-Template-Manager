@@ -11,7 +11,7 @@ export default function AddTemplateForm({
 }: AddTemplateFormProps) {
   const [formData, setFormData] = useState<NewTemplate>({
     name: "",
-    category: "",
+    category: "Social",
     status: "draft",
   });
   const handleAddTemplateCancel = () => {
