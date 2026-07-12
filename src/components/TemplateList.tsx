@@ -1,6 +1,6 @@
 import { templates } from "../data/templates";
 import TemplateCard from "./TemplateCard";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import type { Template } from "../types/Template";
 
 type TemplateListProps = {
@@ -14,9 +14,10 @@ export default function TemplateList({
 }: TemplateListProps) {
   const [search, setSearch] = useState("");
   const normalizedSearch = search.trim().toLowerCase();
-  const filteredTemplates = templates.filter((template) =>
+  const filteredTemplates = useMemo(() => {return templates.filter((template) =>
     template.name.toLowerCase().startsWith(normalizedSearch),
-  );
+  )}, [normalizedSearch]);
+  
   useEffect(() => {
     if (filteredTemplates.length === 1) {
       onAutoSelectTemplate(filteredTemplates[0]);
@@ -24,6 +25,7 @@ export default function TemplateList({
       onAutoSelectTemplate(null);
     }
   }, [filteredTemplates, onAutoSelectTemplate]);
+
   return (
     <section>
       <div>
